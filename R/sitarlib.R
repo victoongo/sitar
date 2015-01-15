@@ -281,7 +281,8 @@
 #
 #############################
 
-	y2plot <- function(x, y1, y2=NULL, labels, y2par=list(), add=FALSE, xy=NULL, xlegend="topleft", inset=0.04, ...)
+	# y2plot <- function(x, y1, y2=NULL, labels, y2par=list(), add=FALSE, xy=NULL, xlegend="topleft", inset=0.04, y2axis=FALSE, axispar=list(), ...)
+  y2plot <- function(x, y1, y2=NULL, labels, y2par=list(), add=FALSE, xy=NULL, xlegend="topleft", inset=0.04, y2axis=FALSE, ...)
 #	plot x versus y1 and y2 using left/right axes for the two y's
 #	returns par() for y1 or list(par(), par("usr")) with y2
 #	labels are labels for x, y1 and y2 (xlab and ylab override x and y1, y2par['ylab'] overrides y2)
@@ -295,6 +296,7 @@
 #	plot y1
 	ypar <- list(...)
 	y2par <- as.list(y2par)
+  # axispar <- as.list(axispar)
 #	save y1 par args
 	opar <- par(no.readonly=TRUE)
 	lty <- 1:2
@@ -350,7 +352,13 @@
 			eval(parse(text=".par.usr2 <<- par('usr')"))
 			# .par.usr2 <<- par('usr')
 #	add y2 axis 
-			if (par('mar')[4] >= 0) axis(4)
+			if (!y2axis) {
+        if (par('mar')[4] >= 2) axis(4)
+      } else {
+        # do.call('axis', c(list(4), axispar))
+        axis(4, col = "grey40", col.axis = "grey20", at = seq(0.2,1.2,0.2))
+      }
+
 #	unset col
 			y2par$col <- NULL
 #	add y2 axis label
