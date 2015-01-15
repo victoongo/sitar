@@ -350,7 +350,7 @@
 			eval(parse(text=".par.usr2 <<- par('usr')"))
 			# .par.usr2 <<- par('usr')
 #	add y2 axis 
-			if (par('mar')[4] >= 2) axis(4)
+			if (par('mar')[4] >= 0) axis(4)
 #	unset col
 			y2par$col <- NULL
 #	add y2 axis label
